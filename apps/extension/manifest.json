@@ -1,0 +1,21 @@
+{
+  "manifest_version": 3,
+  "name": "Pulse",
+  "version": "0.1.0",
+  "description": "Universal Sports & Esports Companion",
+
+  "action": {
+    "default_popup": "index.html",
+    "default_title": "Pulse"
+  },
+
+  "background": {
+    "service_worker": "src/background/background.ts",
+    "type": "module"
+  },
+
+  "permissions": [
+    "storage",
+    "notifications"
+  ]
+}
