@@ -1,0 +1,57 @@
+.card {
+  background: #1E293B;
+  border-radius: 16px;
+  padding: 16px;
+  margin: 16px;
+}
+
+.header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+
+  margin-bottom:16px;
+
+  color:white;
+
+  font-size:14px;
+}
+
+.teamRow{
+  display:flex;
+  justify-content:space-between;
+
+  margin:10px 0;
+
+  color:white;
+
+  font-size:16px;
+}
+
+.minute{
+  text-align:center;
+
+  color:#22C55E;
+
+  font-weight:700;
+
+  margin:14px 0;
+}
+
+.actions{
+  display:flex;
+  justify-content:space-between;
+
+  margin-top:16px;
+}
+
+.actions button{
+  background:none;
+  border:none;
+
+  color:white;
+
+  font-size:20px;
+
+  cursor:pointer;
+}

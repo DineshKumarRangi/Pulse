@@ -1,0 +1,21 @@
+.badge {
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.live {
+  background: #22C55E;
+  color: white;
+}
+
+.finished {
+  background: #64748B;
+  color: white;
+}
+
+.upcoming {
+  background: #F59E0B;
+  color: white;
+}
