@@ -1,8 +1,9 @@
-export interface MatchCardProps {
+
+export interface Match {
   id: string;
 
-  league: string;
   sport: string;
+  league: string;
 
   homeTeam: string;
   awayTeam: string;

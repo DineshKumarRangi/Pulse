@@ -1,57 +1,61 @@
 .card {
-  background: #1E293B;
+  background: #1e293b;
   border-radius: 16px;
   padding: 16px;
   margin: 16px;
 }
 
-.header{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 
-  margin-bottom:16px;
+  margin-bottom: 16px;
 
-  color:white;
-
-  font-size:14px;
+  color: white;
 }
 
-.teamRow{
-  display:flex;
-  justify-content:space-between;
+.teamRow {
+  display: flex;
+  justify-content: space-between;
 
-  margin:10px 0;
+  margin: 10px 0;
 
-  color:white;
+  color: white;
 
-  font-size:16px;
+  font-size: 16px;
 }
 
-.minute{
-  text-align:center;
+.minute {
+  text-align: center;
 
-  color:#22C55E;
+  color: #22c55e;
 
-  font-weight:700;
+  font-weight: 700;
 
-  margin:14px 0;
+  margin: 14px 0;
 }
 
-.actions{
-  display:flex;
-  justify-content:space-between;
+.actions {
+  display: flex;
+  justify-content: space-between;
 
-  margin-top:16px;
+  margin-top: 16px;
 }
 
-.actions button{
-  background:none;
-  border:none;
+.actionButton {
+  background: transparent;
+  border: none;
 
-  color:white;
+  color: white;
 
-  font-size:20px;
+  font-size: 22px;
 
-  cursor:pointer;
+  cursor: pointer;
+
+  transition: transform 0.2s ease;
+}
+
+.actionButton:hover {
+  transform: scale(1.15);
 }

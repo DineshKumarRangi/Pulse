@@ -1,0 +1,31 @@
+.header{
+
+    padding:20px;
+
+    text-align:center;
+
+    border-bottom:1px solid #334155;
+
+    margin-bottom:10px;
+
+}
+
+.logo{
+
+    color:white;
+
+    font-size:24px;
+
+    font-weight:700;
+
+}
+
+.subtitle{
+
+    color:#94A3B8;
+
+    font-size:13px;
+
+    margin-top:4px;
+
+}

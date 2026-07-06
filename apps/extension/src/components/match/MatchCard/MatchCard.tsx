@@ -1,8 +1,10 @@
 import styles from "./MatchCard.module.css";
 import type { MatchCardProps } from "./MatchCard.types";
 import Badge from "../../ui/Badge";
+import { useFavoriteStore } from "../../../store";
 
 export default function MatchCard({
+  id,
   league,
   sport,
   homeTeam,
@@ -12,11 +14,19 @@ export default function MatchCard({
   status,
   minute,
 }: MatchCardProps) {
+  const toggleFavorite = useFavoriteStore(
+    (state) => state.toggleFavorite
+  );
+
+  const isFavorite = useFavoriteStore(
+    (state) => state.isFavorite(id)
+  );
+
   return (
     <div className={styles.card}>
       <div className={styles.header}>
         <span>
-          {sport} {league}
+          {sport}
         </span>
 
         <Badge text={status} />
@@ -39,8 +49,18 @@ export default function MatchCard({
       )}
 
       <div className={styles.actions}>
-        <button>⭐</button>
-        <button>🔔</button>
+        <button
+          className={styles.actionButton}
+          onClick={() => toggleFavorite(id)}
+        >
+          {isFavorite ? "⭐" : "☆"}
+        </button>
+
+        <button
+          className={styles.actionButton}
+        >
+          🔔
+        </button>
       </div>
     </div>
   );
