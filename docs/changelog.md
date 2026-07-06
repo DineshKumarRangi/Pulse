@@ -144,15 +144,6 @@ This version focuses entirely on building a scalable foundation for Pulse.
 
 ## Public Release
 
-### Planned
-
-- Stable APIs
-- Performance Improvements
-- User Preferences
-- Automatic Updates
-
----
-
 # Release Strategy
 
 Every release should include:
@@ -202,3 +193,52 @@ Bug fixes
 # Future
 
 As the project evolves, every completed sprint should be reflected in this changelog.
+
+
+
+# [0.2.0] - July 2026
+
+## 🚀 Sprint 2 Complete – Chrome Extension MVP Foundation
+
+### Added
+
+#### Design System
+- Theme tokens
+- Color palette
+- Typography
+- Spacing
+- Border radius
+- Shadows
+
+#### UI Components
+- Button
+- Card
+- Badge
+
+#### Sports Components
+- MatchCard
+- LeagueSection
+- Header
+
+#### Pages
+- Home Page
+
+#### State Management
+- Zustand
+- Match Store
+- Favorite Store (foundation)
+
+#### Architecture
+- CSS Modules
+- Shared Match model
+- Mock Match Service
+
+### Changed
+
+- Migrated from global CSS to CSS Modules.
+- Refactored the application to use centralized state management.
+- Grouped matches by league.
+
+### Notes
+
+Sprint 2 establishes the complete frontend architecture of Pulse and prepares the project for interactive features and live sports API integration.

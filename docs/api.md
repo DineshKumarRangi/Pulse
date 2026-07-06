@@ -1,487 +1,214 @@
 # 🌐 Pulse API Documentation
 
-> Last Updated: July 2026
+## Overview
 
-This document defines the REST API and WebSocket communication used by Pulse.
+Pulse follows a service-based architecture where all external data is accessed through a dedicated service layer.
 
----
-
-# API Information
-
-Base URL (Development)
+The user interface never communicates directly with external APIs.
 
 ```
-http://localhost:3000/api
-```
-
-Base URL (Production)
-
-```
-https://api.pulse.app
-```
-
-Current Version
-
-```
-v1
+Sports API
+     │
+     ▼
+API Service
+     │
+     ▼
+Normalization Layer
+     │
+     ▼
+Zustand Store
+     │
+     ▼
+React Components
 ```
 
 ---
 
-# Response Format
+# Current Status
 
-Every response follows the same structure.
+## Sprint 2
 
-Success
+Current data source:
 
-```json
-{
-  "success": true,
-  "data": {}
+- Mock Match Service
+
+Location
+
+```
+src/services/mock/matches.ts
+```
+
+The application currently renders mock data while the frontend architecture is being completed.
+
+---
+
+# Data Model
+
+Current Match model
+
+```ts
+interface Match {
+  id: string;
+
+  sport: string;
+
+  league: string;
+
+  homeTeam: string;
+  awayTeam: string;
+
+  homeScore: number;
+  awayScore: number;
+
+  status: "LIVE" | "FINISHED" | "UPCOMING";
+
+  minute?: string;
 }
 ```
 
-Failure
-
-```json
-{
-  "success": false,
-  "message": "Something went wrong."
-}
-```
+All future API responses will be normalized into this model before entering the application state.
 
 ---
 
-# Health Check
-
-## GET
-
-```
-/health
-```
-
-Purpose
-
-Verify that the backend is running.
-
-Response
-
-```json
-{
-  "status": "ok",
-  "version": "0.1.0"
-}
-```
-
----
-
-# Live Matches
-
-## GET
-
-```
-/matches/live
-```
-
-Purpose
-
-Returns all currently live matches.
-
-Response
-
-```json
-{
-  "success": true,
-  "data": [
-    {
-      "id": "1",
-      "sport": "football",
-      "tournament": "Premier League",
-      "homeTeam": {
-        "name": "Arsenal"
-      },
-      "awayTeam": {
-        "name": "Chelsea"
-      },
-      "score": {
-        "home": 2,
-        "away": 1
-      },
-      "status": "LIVE",
-      "minute": 74
-    }
-  ]
-}
-```
-
----
-
-# Upcoming Matches
-
-## GET
-
-```
-/matches/upcoming
-```
-
-Purpose
-
-Returns scheduled matches.
-
----
-
-# Finished Matches
-
-## GET
-
-```
-/matches/finished
-```
-
-Purpose
-
-Returns completed matches.
-
----
-
-# Match Details
-
-## GET
-
-```
-/matches/:id
-```
-
-Purpose
-
-Returns detailed match information.
-
-Example
-
-```
-/matches/123
-```
-
-Response
-
-```json
-{
-  "success": true,
-  "data": {
-    "id": "123",
-    "sport": "football",
-    "events": []
-  }
-}
-```
-
----
-
-# Match Events
-
-## GET
-
-```
-/matches/:id/events
-```
-
-Purpose
-
-Returns timeline events.
-
-Example
-
-```json
-[
-  {
-    "minute": 14,
-    "type": "GOAL",
-    "team": "Arsenal"
-  }
-]
-```
-
----
-
-# Supported Sports
-
-## GET
-
-```
-/sports
-```
-
-Response
-
-```json
-[
-    "football",
-    "cricket",
-    "basketball",
-    "formula1",
-    "valorant",
-    "cs2",
-    "lol",
-    "dota2"
-]
-```
-
----
-
-# User Settings
-
-## GET
-
-```
-/settings
-```
-
-Returns
-
-- Favorite teams
-- Favorite sports
-- Theme
-- Notifications
-
----
-
-## PUT
-
-```
-/settings
-```
-
-Updates user settings.
-
----
-
-# Notifications
-
-## GET
-
-```
-/notifications
-```
-
-Returns notification history.
-
----
-
-# Search
-
-## GET
-
-```
-/search?q=arsenal
-```
-
-Searches
-
-- Teams
-- Players
-- Tournaments
-
----
-
-# WebSocket
-
-Endpoint
-
-```
-ws://localhost:3000
-```
-
-Purpose
-
-Real-time updates.
-
----
-
-## Event
-
-```
-match:update
-```
-
-Example
-
-```json
-{
-    "id":"1",
-    "score":{
-        "home":2,
-        "away":2
-    }
-}
-```
-
----
-
-## Event
-
-```
-goal
-```
-
-Example
-
-```json
-{
-    "team":"Arsenal",
-    "minute":81
-}
-```
-
----
-
-## Event
-
-```
-match:start
-```
-
----
-
-## Event
-
-```
-match:end
-```
-
----
-
-# HTTP Status Codes
-
-| Code | Meaning |
-|------|---------|
-|200|Success|
-|201|Created|
-|400|Bad Request|
-|401|Unauthorized|
-|403|Forbidden|
-|404|Not Found|
-|500|Internal Server Error|
-
----
-
-# Error Response
-
-```json
-{
-    "success":false,
-    "message":"Match not found."
-}
-```
-
----
-
-# Authentication
-
-Current Version
-
-No authentication.
-
-Future
-
-JWT Authentication
-
-OAuth
-
-Google Login
-
-GitHub Login
-
----
-
-# Rate Limiting
-
-Future
-
-100 requests/minute
-
----
-
-# API Versioning
+# Service Layer
 
 Current
 
 ```
-v1
+services/
+└── mock/
+    └── matches.ts
 ```
 
 Future
 
 ```
-v2
+services/
+├── football/
+├── cricket/
+├── basketball/
+├── esports/
+└── mock/
 ```
 
-Breaking changes will only occur in new versions.
+Each sport will have its own service responsible for fetching and transforming data.
 
 ---
 
-# Future Endpoints
+# State Flow
 
 ```
-/players
-
-/teams
-
-/tournaments
-
-/rankings
-
-/statistics
-
-/highlights
-
-/ai-summary
-
-/bookmarks
+Mock Data
+     │
+     ▼
+Match Store (Zustand)
+     │
+     ▼
+Pages
+     │
+     ▼
+Components
 ```
 
----
-
-# API Principles
-
-- RESTful
-- Predictable responses
-- Consistent error handling
-- Versioned endpoints
-- Typed responses
-- Fast (<200ms average)
-
----
-
-# Backend Workflow
+Future
 
 ```
 Sports APIs
-
-↓
-
-Normalize Data
-
-↓
-
-Cache
-
-↓
-
-REST API
-
-↓
-
-WebSocket
-
-↓
-
-Extension
+      │
+      ▼
+Service Layer
+      │
+      ▼
+Normalization
+      │
+      ▼
+Match Store
+      │
+      ▼
+React UI
 ```
 
 ---
 
-# Notes
+# Planned API Endpoints
 
-This document serves as the contract between the frontend and backend.
+## Football
 
-Any breaking API changes must be reflected here before implementation.
+- Live Matches
+- Match Details
+- Team Information
+- League Standings
+
+---
+
+## Cricket
+
+- Live Matches
+- Scorecards
+- Player Statistics
+
+---
+
+## Basketball
+
+- Live Games
+- Team Statistics
+- League Standings
+
+---
+
+## Esports
+
+Supported titles:
+
+- Valorant
+- Counter-Strike 2
+- League of Legends
+- Dota 2
+
+---
+
+# Planned Features
+
+- Automatic refresh
+- Background synchronization
+- API response caching
+- Retry mechanism
+- Error handling
+- Offline fallback
+
+---
+
+# Design Principles
+
+## Single Source of Truth
+
+The Zustand store is the only place where application state is stored.
+
+---
+
+## API Independence
+
+UI components must never depend on a specific API provider.
+
+Changing providers should only require updating the service layer.
+
+---
+
+## Data Normalization
+
+Different sports APIs return different response formats.
+
+Each service will normalize its responses into Pulse's shared models before updating the store.
+
+---
+
+# Future Work
+
+Sprint 3
+
+- Select sports API provider
+- Implement Football service
+- Connect Match Store to live data
+- Automatic polling
+- Error handling

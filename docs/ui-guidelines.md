@@ -1,222 +1,159 @@
 # 🎨 Pulse UI Guidelines
 
-> Last Updated: July 2026
+## Overview
 
-This document defines the design language for Pulse.
+Pulse follows a clean, modern, and sports-focused design language.
 
-The goal is to create a modern, clean, fast, and consistent user experience across the Chrome Extension, Desktop App, and Web Dashboard.
+The primary goals are:
+
+- Fast information scanning
+- Minimal visual clutter
+- Consistent spacing
+- Reusable components
+- Dark-first experience
+- Responsive Chrome Extension popup
 
 ---
 
 # Design Principles
 
-Pulse UI follows five principles.
+## Simplicity
 
-- Minimal
-- Fast
-- Readable
-- Consistent
-- Accessible
+Every screen should prioritize the most important information.
 
-The interface should never distract users from the information they want.
+Example:
 
----
+- League
+- Teams
+- Score
+- Match Status
 
-# Design Style
-
-Inspired by
-
-- Arc Browser
-- Raycast
-- Linear
-- Notion
-- GitHub
-
-Characteristics
-
-- Rounded corners
-- Soft shadows
-- Smooth animations
-- High contrast
-- Compact layout
+Everything else is secondary.
 
 ---
 
-# Color Palette
+## Consistency
+
+Spacing, typography, colors, and components should remain consistent across the application.
+
+No component should introduce its own design language.
+
+---
+
+## Reusability
+
+Every UI element should be reusable.
+
+Current reusable components:
+
+- Button
+- Card
+- Badge
+
+Current feature components:
+
+- MatchCard
+- LeagueSection
+- Header
+
+Future components:
+
+- Bottom Navigation
+- Search Bar
+- Team Logo
+- Live Indicator
+- Notification Card
+
+---
+
+# Theme
 
 ## Primary
 
 ```
-Blue
 #2563EB
 ```
 
-Used for
+## Primary Hover
 
-- Primary buttons
-- Active tabs
-- Links
-
----
+```
+#1D4ED8
+```
 
 ## Success
 
 ```
-Green
 #22C55E
 ```
-
-Used for
-
-- Live indicator
-- Positive changes
-- Success messages
-
----
 
 ## Warning
 
 ```
-Orange
 #F59E0B
 ```
-
-Used for
-
-- Match about to begin
-- Warning messages
-
----
 
 ## Danger
 
 ```
-Red
 #EF4444
 ```
 
-Used for
-
-- Errors
-- Critical notifications
-
----
-
 ## Background
-
-Light
-
-```
-#FFFFFF
-```
-
-Dark
 
 ```
 #0F172A
 ```
 
----
-
 ## Surface
-
-Light
-
-```
-#F8FAFC
-```
-
-Dark
 
 ```
 #1E293B
 ```
 
----
-
-## Text
-
-Primary
+## Border
 
 ```
-#0F172A
-```
-
-Secondary
-
-```
-#64748B
+#334155
 ```
 
 ---
 
 # Typography
 
-Font
-
-```
-Inter
-```
-
-Fallback
-
-```
-sans-serif
-```
-
----
-
-# Font Sizes
-
-| Element | Size |
-|----------|------|
-| Hero | 32px |
-| Heading | 24px |
-| Title | 20px |
-| Subtitle | 16px |
-| Body | 14px |
-| Caption | 12px |
-
----
-
-# Font Weight
-
-| Weight | Usage |
-|----------|------|
-| 700 | Headings |
-| 600 | Titles |
-| 500 | Buttons |
-| 400 | Body |
-
----
-
-# Spacing System
-
-Use an 8px spacing system.
-
-```
-4px
-8px
-16px
-24px
-32px
-40px
-48px
-64px
-```
-
-Avoid arbitrary spacing values whenever possible.
+| Type | Size | Weight |
+|------|------|--------|
+| Heading | 24px | 700 |
+| Title | 18px | 600 |
+| Subtitle | 16px | 500 |
+| Body | 14px | 400 |
+| Caption | 12px | 400 |
 
 ---
 
 # Border Radius
 
-| Component | Radius |
-|-----------|---------|
-| Button | 10px |
-| Card | 14px |
-| Popup | 18px |
-| Modal | 20px |
+| Token | Value |
+|--------|-------|
+| Small | 8px |
+| Medium | 12px |
+| Large | 16px |
+| Full | 9999px |
+
+---
+
+# Spacing
+
+| Token | Value |
+|--------|-------|
+| XS | 4px |
+| SM | 8px |
+| MD | 12px |
+| LG | 16px |
+| XL | 20px |
+| 2XL | 24px |
+| 3XL | 32px |
+| 4XL | 40px |
+| 5XL | 48px |
 
 ---
 
@@ -225,250 +162,112 @@ Avoid arbitrary spacing values whenever possible.
 Small
 
 ```
-0 2px 8px rgba(0,0,0,.08)
+0 2px 6px rgba(0,0,0,.15)
 ```
 
 Medium
 
 ```
-0 8px 24px rgba(0,0,0,.12)
-```
-
-Large
-
-```
-0 16px 48px rgba(0,0,0,.18)
+0 6px 20px rgba(0,0,0,.25)
 ```
 
 ---
 
-# Buttons
+# CSS Strategy
 
-## Primary
+Pulse uses **CSS Modules**.
 
-Blue background
+Reasons:
 
-White text
+- Scoped styles
+- No global conflicts
+- Better maintainability
+- Easier component reuse
 
-Rounded corners
-
----
-
-## Secondary
-
-Gray background
-
-Dark text
-
----
-
-## Ghost
-
-Transparent
-
-Hover effect only
-
----
-
-## Icon Button
-
-Square
-
-Centered icon
-
-40x40 pixels
-
----
-
-# Cards
-
-Cards should include
-
-- Rounded corners
-- Soft shadow
-- Internal padding
-- Hover animation
-
-Example
+Each component should have:
 
 ```
-┌────────────────────────┐
-│ Arsenal vs Chelsea     │
-│ 2 - 1                  │
-│ 74'                    │
-└────────────────────────┘
+Component/
+├── Component.tsx
+├── Component.module.css
+└── index.ts
 ```
 
 ---
 
-# Match Card
+# Component Guidelines
 
-Contains
+## UI Components
 
-- Team logos
-- Team names
-- Score
-- Match status
-- Tournament
+Reusable and independent.
 
-Optional
+Examples:
 
-- Time
-- Venue
+- Button
+- Card
+- Badge
 
----
-
-# Icons
-
-Use
-
-- Lucide React
-
-Avoid mixing icon libraries.
+These should not contain sports-specific logic.
 
 ---
 
-# Animations
+## Feature Components
 
-Duration
+Domain-specific components.
 
-```
-150ms
-```
+Examples:
 
-Default
+- MatchCard
+- LeagueSection
+- Header
 
-```
-ease-out
-```
-
-Examples
-
-- Hover
-- Fade
-- Scale
-- Slide
-
-Avoid long animations.
+These may use application state and business models.
 
 ---
 
-# Loading States
+# Layout Guidelines
 
-Use skeleton loaders instead of spinners whenever possible.
-
-Example
+Application hierarchy:
 
 ```
-████████████
+Header
 
-████████████
+↓
 
-████████████
+Page
+
+↓
+
+League Section
+
+↓
+
+Match Card
+
+↓
+
+Actions
 ```
-
----
-
-# Empty States
-
-Always explain what the user should do next.
-
-Example
-
-```
-No live matches.
-
-Check back later or refresh.
-```
-
----
-
-# Notifications
-
-Use concise messages.
-
-Good
-
-```
-⚽ Goal!
-
-Arsenal 2-1 Chelsea
-```
-
-Avoid long paragraphs.
-
----
-
-# Responsive Design
-
-Extension Popup
-
-```
-360px × 600px
-```
-
-Desktop
-
-Adaptive
-
-Web
-
-Responsive
 
 ---
 
 # Accessibility
 
-- Keyboard navigation
-- Focus indicators
-- Minimum contrast ratio
-- Click targets ≥ 44px
-- Meaningful labels
+Every interactive element should:
+
+- Be keyboard accessible
+- Include meaningful labels
+- Have visible hover and focus states
+- Maintain sufficient color contrast
 
 ---
 
-# Theme Support
+# Future Improvements
 
-Themes
-
-- Light
-- Dark
-- System
-
-Future
-
-- OLED
-- High Contrast
-
----
-
-# Future UI Components
-
-- Match Card
-- Tournament Card
-- Notification Toast
-- Sidebar
-- Floating Widget
-- Search Bar
-- Tabs
-- Statistics Panel
-
----
-
-# UI Checklist
-
-Before merging a feature, verify:
-
-- Consistent spacing
-- Correct typography
-- Correct colors
-- Responsive layout
-- Accessible controls
-- Smooth animations
-- Reusable components
-
----
-
-# Conclusion
-
-Every new screen should follow these guidelines to ensure Pulse feels like a single, polished product regardless of platform.
+- Lucide React icons
+- Light theme
+- Responsive layouts
+- Animation system
+- Skeleton loading states
+- Team logos
+- Sport-specific icons

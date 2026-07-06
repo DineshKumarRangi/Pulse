@@ -1,72 +1,80 @@
-# 🛠 Pulse Development Setup
+# ⚙️ Pulse Setup Guide
 
-> Last Updated: July 2026
+## Overview
 
 This guide explains how to set up the Pulse development environment from scratch.
 
 ---
 
-# System Requirements
+# Prerequisites
 
-Before starting, install the following software.
+Install the following tools before cloning the repository.
 
-## Required
+## Node.js
 
-- Node.js (v22 or later)
-- pnpm (v11 or later)
-- Git
-- Google Chrome
+Recommended Version
 
-## Recommended
-
-- Visual Studio Code
-- GitHub Desktop
-- Postman
-- Docker Desktop (Future)
+```
+v22+
+```
 
 ---
 
-# Verify Installation
+## pnpm
 
-Run the following commands.
+Install globally
 
 ```bash
-node -v
+npm install -g pnpm
+```
+
+Verify
+
+```bash
 pnpm -v
+```
+
+---
+
+## Git
+
+Install Git and configure your GitHub account.
+
+Verify
+
+```bash
 git --version
 ```
 
-Example
+---
 
-```text
-Node.js 22.x.x
-pnpm 11.x.x
-git 2.xx.x
-```
+## Google Chrome
+
+Required for developing and testing the browser extension.
 
 ---
 
 # Clone Repository
 
 ```bash
-git clone <repository-url>
+git clone https://github.com/DineshKumarRangi/Pulse.git
 ```
 
-Move into the project
-
 ```bash
-cd pulse
+cd Pulse
 ```
 
 ---
 
 # Install Dependencies
 
+From the project root
+
 ```bash
 pnpm install
 ```
 
-This installs dependencies for every workspace package.
+This installs dependencies for all workspace packages.
 
 ---
 
@@ -74,45 +82,138 @@ This installs dependencies for every workspace package.
 
 ```
 pulse/
-
-apps/
-    extension/
-    api/
-    desktop/
-    web/
-
-packages/
-    shared/
-    ui/
-    api-client/
-    configs/
-
-docs/
+│
+├── apps/
+│   └── extension/
+│
+├── packages/
+│   └── shared/
+│
+├── docs/
+│
+├── package.json
+├── turbo.json
+└── pnpm-workspace.yaml
 ```
 
 ---
 
-# Development Commands
+# Development
 
-Run all development servers
+Start the development server
 
 ```bash
 pnpm dev
 ```
 
-Build every application
+TurboRepo will start the extension workspace.
+
+---
+
+# Build
+
+Create a production build
 
 ```bash
 pnpm build
 ```
 
-Run lint
+---
+
+# Load Extension
+
+1. Open Chrome
+
+```
+chrome://extensions
+```
+
+2. Enable
+
+```
+Developer Mode
+```
+
+3. Click
+
+```
+Load unpacked
+```
+
+4. Select
+
+```
+apps/extension/dist
+```
+
+The Pulse extension should now appear in Chrome.
+
+---
+
+# Tech Stack
+
+Frontend
+
+- React
+- TypeScript
+- Vite
+
+Extension
+
+- CRXJS
+- Chrome Extension Manifest V3
+
+Monorepo
+
+- TurboRepo
+- pnpm Workspace
+
+State Management
+
+- Zustand
+
+Styling
+
+- CSS Modules
+
+Language
+
+- TypeScript
+
+Version Control
+
+- Git
+- GitHub
+
+---
+
+# Useful Commands
+
+Install dependencies
+
+```bash
+pnpm install
+```
+
+Run development server
+
+```bash
+pnpm dev
+```
+
+Build project
+
+```bash
+pnpm build
+```
+
+Lint
 
 ```bash
 pnpm lint
 ```
 
-Run type checking
+Type check
 
 ```bash
 pnpm typecheck
@@ -120,65 +221,66 @@ pnpm typecheck
 
 ---
 
-# Workspace Commands
+# Troubleshooting
 
-Run Extension only
+## Extension does not load
+
+- Verify the build completed successfully.
+- Reload the unpacked extension.
+- Check the browser console for errors.
+
+---
+
+## Hot Reload Issues
+
+If Vite Hot Module Reload stops working:
 
 ```bash
-pnpm --filter extension dev
+Ctrl + C
 ```
 
-Build Extension
+Restart the development server
 
 ```bash
-pnpm --filter extension build
-```
-
-Build Shared Package
-
-```bash
-pnpm --filter @pulse/shared build
+pnpm dev
 ```
 
 ---
 
-# Chrome Extension Setup
+## CSS Module Errors
 
-Open
-
-```
-chrome://extensions
-```
-
-Enable
+Ensure component styles follow this structure
 
 ```
-Developer Mode
+Component/
+├── Component.tsx
+├── Component.module.css
+└── index.ts
 ```
 
-Click
+---
 
-```
-Load unpacked
+## TypeScript Errors
+
+Run
+
+```bash
+pnpm typecheck
 ```
 
-Select
-
-```
-apps/extension/dist
-```
+before committing changes.
 
 ---
 
 # Git Workflow
 
-Check status
+Check current changes
 
 ```bash
 git status
 ```
 
-Stage changes
+Stage files
 
 ```bash
 git add .
@@ -187,135 +289,27 @@ git add .
 Commit
 
 ```bash
-git commit -m "feat(extension): add match card"
+git commit -m "your message"
 ```
 
 Push
 
 ```bash
-git push
-```
-
----
-
-# Branch Strategy
-
-Main
-
-```
-main
-```
-
-Feature branches
-
-```
-feature/popup-ui
-
-feature/backend-api
-
-feature/notifications
-```
-
-Bug fixes
-
-```
-fix/storage
-
-fix/build
-```
-
----
-
-# Recommended VS Code Extensions
-
-- ESLint
-- Prettier
-- GitLens
-- Error Lens
-- Path IntelliSense
-- Turbo Console Log
-
----
-
-# Common Problems
-
-## TurboRepo not found
-
-Run
-
-```bash
-pnpm install
-```
-
----
-
-## Workspace not detected
-
-Verify
-
-```
-pnpm-workspace.yaml
-```
-
-contains
-
-```yaml
-packages:
-  - "apps/*"
-  - "packages/*"
-```
-
----
-
-## Extension won't load
-
-Check
-
-- Manifest exists
-- Build completed
-- Developer Mode enabled
-
----
-
-## TypeScript errors
-
-Run
-
-```bash
-pnpm typecheck
-```
-
-Restart VS Code if IntelliSense is out of sync.
-
----
-
-## Dependency issues
-
-Remove
-
-```
-node_modules
-pnpm-lock.yaml
-```
-
-Then
-
-```bash
-pnpm install
+git push origin main
 ```
 
 ---
 
 # Development Workflow
 
-Every feature follows this process.
+Every new feature should follow this process.
 
 ```
 Plan
 
 ↓
 
-Create Branch
+Design
 
 ↓
 
@@ -327,7 +321,7 @@ Test
 
 ↓
 
-Update Documentation
+Document
 
 ↓
 
@@ -336,24 +330,34 @@ Commit
 ↓
 
 Push
-
-↓
-
-Merge
 ```
 
----
-
-# Coding Standards
-
-- Use TypeScript
-- Prefer reusable components
-- Avoid duplicate logic
-- Keep functions focused on one responsibility
-- Document important architectural decisions
+Documentation should always be updated before merging a completed sprint.
 
 ---
 
-# Support
+# Current Status
 
-If you encounter a new setup issue that is not documented here, fix it first, then add the solution to this document so future contributors don't hit the same problem.
+Current Version
+
+```
+v0.2.0
+```
+
+Current Sprint
+
+```
+Sprint 3
+```
+
+Completed
+
+- Sprint 1
+- Sprint 2
+
+In Progress
+
+- Interactive Features
+- Favorites
+- Navigation
+- Live Sports Integration

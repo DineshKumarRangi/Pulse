@@ -321,6 +321,232 @@ Positive
 
 ---
 
+
+
+
+
 # Future Decisions
 
 This document will continue to grow as Pulse evolves.
+
+
+
+---
+
+# Sprint 2 Architectural Decisions
+
+## Decision 1: CSS Modules
+
+### Status
+
+Accepted
+
+### Problem
+
+Using global CSS increases the risk of style collisions as the application grows.
+
+### Decision
+
+Adopt CSS Modules for all reusable and feature components.
+
+### Benefits
+
+- Scoped styles
+- Improved maintainability
+- Better scalability
+- Easier component reuse
+
+### Trade-offs
+
+- Slightly more verbose imports
+- Learning curve for new contributors
+
+---
+
+## Decision 2: Zustand for State Management
+
+### Status
+
+Accepted
+
+### Problem
+
+As Pulse grows, component-to-component state sharing becomes difficult using props alone.
+
+### Decision
+
+Use Zustand as the primary client-side state management library.
+
+### Benefits
+
+- Minimal boilerplate
+- Excellent TypeScript support
+- High performance
+- Simple API
+- Scales well for medium and large applications
+
+### Alternatives Considered
+
+- React Context API
+- Redux Toolkit
+- MobX
+
+### Reason for Selection
+
+Zustand provides the best balance between simplicity and scalability for Pulse.
+
+---
+
+## Decision 3: Multiple Stores Instead of One Global Store
+
+### Status
+
+Accepted
+
+### Decision
+
+Split application state into independent stores.
+
+Current stores
+
+- Match Store
+- Favorite Store
+
+Planned stores
+
+- Notification Store
+- Settings Store
+- User Store
+
+### Benefits
+
+- Clear separation of concerns
+- Easier testing
+- Easier maintenance
+- Independent feature development
+
+---
+
+## Decision 4: Layered Application Architecture
+
+### Status
+
+Accepted
+
+### Decision
+
+Separate the application into distinct layers.
+
+```
+Services
+    ↓
+Stores
+    ↓
+Pages
+    ↓
+Feature Components
+    ↓
+Reusable UI Components
+```
+
+### Benefits
+
+- Loose coupling
+- Better scalability
+- Easier testing
+- Cleaner code organization
+
+---
+
+## Decision 5: Shared Type Definitions
+
+### Status
+
+Accepted
+
+### Decision
+
+Store common application models inside:
+
+```
+src/types/
+```
+
+Current shared models
+
+- Match
+
+Future shared models
+
+- Team
+- League
+- Player
+- Notification
+
+### Benefits
+
+- Single source of truth
+- Strong TypeScript contracts
+- Reduced duplication
+
+---
+
+## Decision 6: Mock Service Before Live APIs
+
+### Status
+
+Accepted
+
+### Decision
+
+Develop the user interface against mock data before integrating live sports APIs.
+
+### Benefits
+
+- Faster UI development
+- Independent frontend progress
+- Easier testing
+- Simplifies API integration later
+
+---
+
+## Decision 7: Component-First Development
+
+### Status
+
+Accepted
+
+### Decision
+
+Build reusable UI components before developing complete pages.
+
+Development order
+
+1. Design System
+2. UI Components
+3. Feature Components
+4. Pages
+5. State Management
+6. API Integration
+
+### Benefits
+
+- High reusability
+- Consistent design
+- Faster feature development
+- Easier maintenance
+
+---
+
+# Future Decisions
+
+The following architectural decisions will be documented as the project evolves.
+
+- Sports API provider selection
+- Notification architecture
+- Authentication strategy
+- Offline caching
+- Background synchronization
+- Cross-platform shared logic
+- Desktop application architecture
+

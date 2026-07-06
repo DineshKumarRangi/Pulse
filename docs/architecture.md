@@ -1,40 +1,29 @@
-# 🏗 Pulse System Architecture
+# 🏗️ Pulse Architecture
 
-> Last Updated: July 2026
+## Overview
 
----
+Pulse is built using a modular, scalable architecture designed to support multiple clients (Chrome Extension, Web App, Desktop App, and Mobile App) while sharing common business logic.
 
-# Overview
-
-Pulse is a cross-platform application that delivers real-time sports and esports updates through multiple clients.
-
-Instead of each application implementing its own logic, Pulse follows a shared architecture where all clients communicate with a centralized backend.
-
----
-
-# High-Level Architecture
+The project follows a layered architecture:
 
 ```
-                    Sports APIs
-        (Football, Cricket, Esports)
-
-                    │
-                    ▼
-
-          ┌───────────────────────┐
-          │     Pulse Backend      │
-          │  Express + TypeScript  │
-          └───────────┬────────────┘
-                      │
-          REST API / WebSocket
-                      │
-     ┌────────────────┼────────────────┐
-     │                │                │
-     ▼                ▼                ▼
-Chrome Extension   Desktop App   Web Dashboard
-     │
-     ▼
- Shared Packages
+                 Sports APIs (Future)
+                        │
+                        ▼
+                 Services Layer
+                        │
+                        ▼
+              Zustand State Stores
+                        │
+        ┌───────────────┴───────────────┐
+        ▼                               ▼
+      Pages                       Background Tasks
+        │
+        ▼
+   Feature Components
+        │
+        ▼
+   Reusable UI Components
 ```
 
 ---
@@ -43,397 +32,254 @@ Chrome Extension   Desktop App   Web Dashboard
 
 ```
 pulse/
-
+│
 ├── apps/
-│   ├── extension/
-│   ├── api/
-│   ├── desktop/
-│   └── web/
+│   └── extension/
+│       ├── src/
+│       │   ├── components/
+│       │   │   ├── ui/
+│       │   │   ├── layout/
+│       │   │   ├── league/
+│       │   │   └── match/
+│       │   │
+│       │   ├── pages/
+│       │   │   └── Home/
+│       │   │
+│       │   ├── services/
+│       │   │   └── mock/
+│       │   │
+│       │   ├── store/
+│       │   │
+│       │   ├── styles/
+│       │   │
+│       │   ├── hooks/
+│       │   │
+│       │   ├── types/
+│       │   │
+│       │   ├── App.tsx
+│       │   └── main.tsx
+│       │
+│       └── public/
 │
 ├── packages/
-│   ├── shared/
-│   ├── ui/
-│   ├── api-client/
-│   └── configs/
+│   └── shared/
 │
-├── docs/
-│
-├── turbo.json
-├── package.json
-└── pnpm-workspace.yaml
+└── docs/
 ```
 
 ---
 
-# Applications
+# Layer Responsibilities
 
-## Extension
+## UI Components
 
-Purpose
+Reusable presentation components.
 
-Provides quick access to live scores through Chrome.
+Current components:
 
-Responsibilities
+- Button
+- Card
+- Badge
 
-- Display popup UI
-- Store user preferences
-- Show notifications
-- Background updates
-- Browser overlay
+These components are generic and independent of sports logic.
 
 ---
 
-## API
+## Feature Components
 
-Purpose
+Components responsible for sports-specific UI.
 
-Central communication layer.
-
-Responsibilities
-
-- Receive sports data
-- Normalize APIs
-- Cache responses
-- Authenticate users
-- Broadcast updates
-
----
-
-## Desktop
-
-Purpose
-
-Always-on-top companion application.
-
-Responsibilities
-
-- Floating widget
-- Desktop notifications
-- Global shortcuts
-
----
-
-## Web
-
-Purpose
-
-Future dashboard.
-
-Responsibilities
-
-- Detailed statistics
-- Match history
-- User settings
-- Account management
-
----
-
-# Shared Packages
-
-## shared
-
-Contains
-
-- Types
-- Interfaces
-- Utilities
-- Constants
-
-Used by every application.
-
----
-
-## ui
-
-Reusable components.
-
-Examples
+Current components:
 
 - MatchCard
+- LeagueSection
 - Header
-- Buttons
-- LiveBadge
+
+Future components:
+
+- MatchTimeline
+- MatchStats
+- PlayerCard
+- TeamLogo
+- NotificationCard
 
 ---
 
-## api-client
+## Pages
 
-Responsible for
+Pages compose feature components into complete screens.
 
-- API requests
-- WebSocket communication
-- Authentication
+Current pages:
 
----
+- Home
 
-## configs
+Future pages:
 
-Contains
-
-- TypeScript configuration
-- ESLint configuration
-- Prettier configuration
-
----
-
-# Extension Architecture
-
-```
-User
-
-↓
-
-Popup UI
-
-↓
-
-Background Service Worker
-
-↓
-
-Storage
-
-↓
-
-Backend API
-```
-
----
-
-## Popup
-
-Responsibilities
-
-- Display matches
+- Favorites
+- Live
 - Settings
-- Refresh
 - Search
 
 ---
 
-## Background
+## Services
 
-Responsibilities
+Responsible for providing application data.
 
-- Fetch updates
-- Cache scores
-- Notifications
-- Sync storage
+Current:
+
+- Mock Match Service
+
+Future:
+
+- Football API
+- Cricket API
+- Basketball API
+- Esports API
+
+The UI never communicates directly with external APIs.
 
 ---
 
-## Content Script
+## State Management
 
-Future
+Pulse uses **Zustand** for application state management.
 
-Injects floating widgets into webpages.
+Current Stores
+
+- Match Store
+- Favorite Store
+
+Planned Stores
+
+- Notification Store
+- Settings Store
+- User Store
+
+Separating stores keeps each feature focused and avoids a single monolithic global store.
 
 ---
 
-# Backend Architecture
+## Shared Types
+
+Shared models are stored in:
+
+```
+src/types/
+```
+
+Current models:
+
+- Match
+
+These models are shared between services, stores, and UI components.
+
+---
+
+# Current Data Flow
+
+```
+Mock Match Service
+        │
+        ▼
+   Match Store
+        │
+        ▼
+     Home Page
+        │
+        ▼
+  League Section
+        │
+        ▼
+    Match Card
+```
+
+---
+
+# Future Data Flow
 
 ```
 Sports APIs
-
-↓
-
-Providers
-
-↓
-
+      │
+      ▼
+API Services
+      │
+      ▼
 Normalization Layer
-
-↓
-
-Services
-
-↓
-
-REST API
-
-↓
-
-Extension
+      │
+      ▼
+Zustand Stores
+      │
+      ▼
+Pages
+      │
+      ▼
+Components
 ```
-
----
-
-# Data Flow
-
-```
-Sports Provider
-
-↓
-
-Backend
-
-↓
-
-Cache
-
-↓
-
-REST API
-
-↓
-
-Background Worker
-
-↓
-
-Popup
-
-↓
-
-User
-```
-
----
-
-# Domain Model
-
-Core entities
-
-```
-Sport
-
-↓
-
-Tournament
-
-↓
-
-Match
-
-↓
-
-Team
-
-↓
-
-Score
-
-↓
-
-Event
-```
-
-Every feature is built around these entities.
 
 ---
 
 # Design Principles
 
-## Single Responsibility
+Pulse follows the following architectural principles:
 
-Each module has one responsibility.
+### Separation of Concerns
 
----
+Each layer has a single responsibility.
 
-## Shared Logic
+### Reusability
 
-Business logic is shared whenever possible.
+UI components are reusable across multiple pages.
 
----
+### Scalability
 
-## API First
+New sports, APIs, and features can be added without restructuring the application.
 
-Clients never communicate directly with sports providers.
+### Maintainability
 
-Only the backend integrates external APIs.
+Business logic is separated from UI rendering.
 
----
+### Type Safety
 
-## Event Driven
-
-Pulse reacts to events.
-
-Examples
-
-- Goal
-- Wicket
-- Kill
-- Race Finished
+TypeScript models define contracts between all application layers.
 
 ---
 
-# Technology Stack
+# Current Status
 
-Frontend
+## Sprint 1 ✅
 
-- React
-- TypeScript
-- Vite
-- CRXJS
+Completed
 
-Backend
-
-- Express
-- Node.js
-
-Monorepo
-
-- pnpm
-- TurboRepo
-
-Future
-
-- PostgreSQL
-- Redis
-- Docker
-- GitHub Actions
+- Project setup
+- Monorepo
+- Extension foundation
+- Shared package
 
 ---
 
-# Future Architecture
+## Sprint 2 ✅
 
-```
-           AI Summary Engine
+Completed
 
-                   ▲
-
-Backend ← Redis → PostgreSQL
-
-     ▲
-
-Sports APIs
-
-     ▲
-
-Extension
-
-Desktop
-
-Web
-
-Mobile
-```
+- Design system
+- CSS Modules
+- UI library
+- MatchCard
+- LeagueSection
+- Header
+- Home Page
+- Zustand integration
+- Match Store
+- Favorite Store foundation
 
 ---
 
-# Development Philosophy
+## Sprint 3 🚧
 
-Every new feature should follow:
+In Progress
 
-1. Architecture
-2. Shared Types
-3. Backend
-4. UI
-5. Testing
-6. Documentation
-
-No feature should bypass this workflow.
-
----
-
-# Conclusion
-
-Pulse is designed as a scalable platform rather than a single application.
-
-The architecture prioritizes:
-
-- Reusability
-- Scalability
-- Maintainability
-- Performance
-- Cross-platform compatibility
+- Favorites
+- Bottom Navigation
+- Chrome Storage
+- Live Sports APIs

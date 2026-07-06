@@ -1,273 +1,186 @@
-# 🗺 Pulse Development Roadmap
+# 🗺️ Pulse Roadmap
 
-> Last Updated: July 2026
+## Vision
 
----
-
-# 🎯 Mission
-
-Build the best cross-platform sports companion that delivers live scores,
-match events, and intelligent notifications without requiring users to
-switch tabs or applications.
+Pulse aims to become a unified live sports platform that delivers real-time scores, notifications, overlays, and personalized experiences across multiple platforms.
 
 ---
 
-# 🚀 Version Roadmap
+# Project Progress
 
-## v0.1.0 — Foundation ✅
+| Sprint | Status |
+|---------|--------|
+| Sprint 1 – Project Foundation | ✅ Complete |
+| Sprint 2 – UI Foundation | ✅ Complete |
+| Sprint 3 – Interactive Features | 🚧 In Progress |
+| Sprint 4 – Live Sports Integration | ⏳ Planned |
+| Sprint 5 – User Experience | ⏳ Planned |
+| Sprint 6 – Cross Platform Expansion | ⏳ Planned |
+| Version 1.0 | ⏳ Planned |
 
-Goal:
+---
 
-Create a scalable development platform.
+# Sprint 1 ✅
+
+## Project Foundation
 
 Completed
 
-- [x] pnpm Workspace
-- [x] Monorepo
-- [x] TurboRepo
-- [x] React + TypeScript
-- [x] Vite
-- [x] Chrome Extension Setup
-- [x] Shared Package
-- [x] Documentation Structure
+- TurboRepo Monorepo
+- pnpm Workspace
+- React
+- TypeScript
+- Vite
+- CRXJS
+- Chrome Extension
+- Shared Package
+- Project Documentation
+- GitHub Repository
 
 ---
 
-## v0.2.0 — Chrome Extension MVP 🚧
+# Sprint 2 ✅
 
-Goal
+## UI Foundation
 
-Create a usable browser extension.
+Completed
 
-Features
+### Design System
 
-- [ ] Beautiful Popup UI
-- [ ] Match Cards
-- [ ] Header
-- [ ] Settings Screen
-- [ ] Mock Match Data
-- [ ] Loading States
-- [ ] Empty States
-- [ ] Theme Support
+- Theme
+- Colors
+- Typography
+- Spacing
+- Border Radius
+- Shadows
 
-Deliverable
+### UI Components
 
-Users can install Pulse and browse mock matches.
+- Button
+- Card
+- Badge
 
----
+### Sports Components
 
-## v0.3.0 — Backend MVP
+- MatchCard
+- LeagueSection
+- Header
 
-Goal
+### Pages
 
-Build the Pulse backend.
+- Home
 
-Features
+### Architecture
 
-- [ ] Express Server
-- [ ] Health Endpoint
-- [ ] Live Match Endpoint
-- [ ] Mock Data API
-- [ ] Shared Types
+- CSS Modules
+- Shared Match Model
+- Mock Match Service
 
-Deliverable
+### State Management
 
-Extension receives data from backend.
-
----
-
-## v0.4.0 — Live Sports
-
-Goal
-
-Replace mock data.
-
-Sports
-
-- [ ] Football
-- [ ] Cricket
-- [ ] Basketball
-
-Deliverable
-
-Real live scores.
+- Zustand
+- Match Store
+- Favorite Store (Foundation)
 
 ---
 
-## v0.5.0 — Esports
+# Sprint 3 🚧
 
-Goal
+## Interactive Features
 
-Support esports.
+Current Sprint
 
-Games
+### Favorites
 
-- [ ] Valorant
-- [ ] CS2
-- [ ] League of Legends
-- [ ] Dota 2
+- Complete Favorite Store
+- Favorites Page
+- Favorite Toggle
 
-Deliverable
+### Navigation
 
-Sports + Esports together.
+- Bottom Navigation
+- Page Routing
 
----
+### Storage
 
-## v0.6.0 — Notifications
+- Chrome Storage
+- Persist Favorites
 
-Goal
+### Search
 
-Never miss an important moment.
-
-Features
-
-- [ ] Goal Notifications
-- [ ] Wicket Notifications
-- [ ] Match Start
-- [ ] Match End
-- [ ] Custom Alerts
-
-Deliverable
-
-Chrome Notifications.
+- Search Matches
+- Filter by Sport
 
 ---
 
-## v0.7.0 — Browser Overlay
+# Sprint 4 ⏳
 
-Goal
+## Live Sports
 
-Display scores everywhere.
-
-Features
-
-- [ ] Floating Widget
-- [ ] Draggable Overlay
-- [ ] Auto Hide
-- [ ] Compact Mode
-
-Deliverable
-
-Live scores on any webpage.
+- Football API
+- Cricket API
+- Basketball API
+- Esports API
+- Automatic Refresh
+- Background Updates
 
 ---
 
-## v0.8.0 — Desktop Companion
+# Sprint 5 ⏳
 
-Goal
+## User Experience
 
-Bring Pulse outside the browser.
-
-Features
-
-- [ ] Electron Desktop App
-- [ ] Always-on-Top Window
-- [ ] Mini Widget
-- [ ] System Tray
-
-Deliverable
-
-Live scores across the operating system.
+- Match Notifications
+- Live Events
+- Settings Page
+- Theme Support
+- Performance Optimization
 
 ---
 
-## v1.0.0 — Pulse Release
+# Sprint 6 ⏳
 
-Goal
+## Platform Expansion
 
-Release the first stable version.
+### Browser
 
-Features
+- Overlay Widget
+- Floating Window
 
-- [ ] Stable APIs
-- [ ] Performance Improvements
-- [ ] User Settings
-- [ ] Sync Preferences
-- [ ] Automatic Updates
+### Desktop
 
-Deliverable
+- Electron Application
+- System Tray
 
-Public Release.
+### Mobile
 
----
-
-# 📅 Sprint Plan
-
-Sprint 1 ✅
-
-Foundation
-
-Sprint 2 🚧
-
-Chrome Extension MVP
-
-Sprint 3
-
-Backend MVP
-
-Sprint 4
-
-Real Sports APIs
-
-Sprint 5
-
-Esports APIs
-
-Sprint 6
-
-Notifications
-
-Sprint 7
-
-Browser Overlay
-
-Sprint 8
-
-Desktop Companion
-
-Sprint 9
-
-Optimization
-
-Sprint 10
-
-Release Candidate
+- React Native
+- Shared Business Logic
 
 ---
 
-# 🔮 Future Ideas
+# Version 1.0 🎯
 
-- AI Match Summaries
-- Voice Notifications
-- Wear OS Support
-- Apple Watch Companion
-- Mobile App
-- Fantasy Sports Integration
-- Smart Predictions
-- Match Timeline Replay
-- Widgets
-- Browser Sync
+## Public Release
 
----
+### Goals
 
-# 📈 Success Metrics
-
-Technical
-
-- < 100 ms Popup Load
-- < 5 s Score Refresh
-- < 50 MB RAM
-- 90+ Lighthouse Score
-
-Product
-
-- 1,000 GitHub Stars
-- 10,000 Users
-- Open Source Community
-- Stable Releases
+- Stable Architecture
+- Live Sports APIs
+- Notifications
+- User Preferences
+- Cross Platform Support
+- Production Ready Documentation
 
 ---
 
-# 📝 Notes
+# Long-Term Vision
 
-This roadmap is a living document and will evolve as Pulse grows.
+Future possibilities include:
+
+- AI-powered match insights
+- Personalized match recommendations
+- Fantasy sports integration
+- Watch-party support
+- Cloud synchronization
+- Premium subscriptions
