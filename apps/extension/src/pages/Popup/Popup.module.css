@@ -1,0 +1,24 @@
+.tabs {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.tabs button {
+  flex: 1;
+  padding: 10px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  background: #1e293b;
+  color: white;
+}
+
+.tabs button.active {
+  background: #2563eb;
+}
+
+.content {
+  flex: 1;
+  overflow-y: auto;
+}

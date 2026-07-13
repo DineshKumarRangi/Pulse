@@ -1,7 +1,8 @@
 import { create } from "zustand";
 
 import type { Match } from "../types/match";
-import { matches as mockMatches } from "../services/mock/matches";
+import { getTodayFixtures } from "../services/api/sportsApi";
+import { mapFixtureToMatch } from "../services/api/matchMapper";
 
 interface MatchState {
   matches: Match[];
@@ -9,24 +10,37 @@ interface MatchState {
   setMatches: (matches: Match[]) => void;
 
   addMatch: (match: Match) => void;
+
+  loadMatches: () => Promise<void>;
 }
 
 export const useMatchStore = create<MatchState>((set) => ({
-
-  matches: mockMatches,
+  matches: [],
 
   setMatches: (matches) => set({ matches }),
 
   addMatch: (match) =>
-  set((state) => {
-    const exists = state.matches.some((m) => m.id === match.id);
+    set((state) => {
+      const exists = state.matches.some((m) => m.id === match.id);
 
-    if (exists) {
-      return state;
+      if (exists) {
+        return state;
+      }
+
+      return {
+        matches: [...state.matches, match],
+      };
+    }),
+
+  loadMatches: async () => {
+    try {
+      const data = await getTodayFixtures();
+
+      const matches = data.response.map(mapFixtureToMatch);
+
+      set({ matches });
+    } catch (error) {
+      console.error("Failed to load matches:", error);
     }
-
-    return {
-      matches: [...state.matches, match],
-    };
-  }),
+  },
 }));

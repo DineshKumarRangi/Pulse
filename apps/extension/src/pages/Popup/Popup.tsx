@@ -1,29 +1,17 @@
+import { useState } from "react";
 import "./Popup.css";
 
 export default function Popup() {
+  const [tab, setTab] = useState("home");
+
   return (
     <div className="popup">
-      <div className="header">
-        <div className="logo">⚡</div>
+      <h1>Pulse</h1>
 
-        <div className="title">
-          <h1>Pulse</h1>
-          <span>Universal Sports Companion</span>
-        </div>
-      </div>
+      <button onClick={() => setTab("home")}>Home</button>
+      <button onClick={() => setTab("favorites")}>Favorites</button>
 
-      <div className="hero">
-        <h2>Welcome 👋</h2>
-
-        <p>
-          Follow your favorite sports and esports in real time.
-          Never miss a goal, wicket, knockout, or race finish.
-        </p>
-
-        <button className="button">
-          Explore Live Matches
-        </button>
-      </div>
+      <p>{tab}</p>
     </div>
   );
 }
